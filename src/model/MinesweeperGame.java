@@ -16,6 +16,12 @@ public class MinesweeperGame {
 
     private final Random rand;
 
+
+    /**
+    * Initializes the game with a board sized BOARD_HEIGHT and BOARD_WIDTH.
+    * Randomly places the bombs.
+    * Then Prints the bomb locations and adjacent numbers to console (not visible to player)
+    */
     public MinesweeperGame() {
         rand = new Random();
         board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
@@ -30,6 +36,10 @@ public class MinesweeperGame {
         printBoardAdjacent();
     }
 
+    /**
+     * Randomly places the bomb by picking a random number twice and checking if there is a bomb already there.
+     * TODO: improve on this as it may get stuck or take a while with larger boards
+     */
     public void placeBombs() {
         int i = BOMB_COUNT;
         while(i != 0) {
@@ -42,6 +52,9 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * Sets the adjcent numbers of each block (number of bombs in adjacent squares, max 8)
+     */
     public void setAdjacent() {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {
@@ -58,14 +71,27 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * toggles the flag value of the given tile
+     * @param x: x value of the flag toggled tile
+     * @param y: y value of the flag toggled tile
+     */
     public void toggleFlag(int x, int y) {
         board[x][y].flagged = !board[x][y].flagged;
     }
 
+    /**
+     * toggles flag mode
+     */
     public void toggleFlagMode() {
         flagMode = !flagMode;
     }
 
+    /**
+     * handles click on the tile (x,y)
+     * @param x: x value of the clicked tile
+     * @param y: y value of the clicked tile
+     */
     public void handleClick(int x, int y) {
         Tile clicked = board[x][y];
         if(flagMode) {
@@ -82,6 +108,11 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * make a BFS iterating through all non-bomb tiles to discover that area starting from tile at (x,y)
+     * @param x: x value of the start tile
+     * @param y: y value of the start tile
+     */
     public void discoverNoAdjacent(int x, int y) {
         Queue<Pair<Integer, Integer>> q = new LinkedList<>();
         Pair<Integer, Integer> curr = new Pair<>(x, y);
@@ -101,6 +132,13 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * Used to get the coordiantes of the adjacent tiles (up left, up, up right...)
+     * does not add to adjacent if the adjacent coordinate is not in the board.
+     * @param x: x value of the tile to get the adjacent blocks from
+     * @param y: y value of the tile to get the adjacent blocks from
+     * @return returns the list containing the adjacent tile coordinates
+     */
     public ArrayList<Pair<Integer,Integer>> getAdjacent(int x, int y) {
         ArrayList<Pair<Integer,Integer>> temp = new ArrayList<>();
         ArrayList<Pair<Integer,Integer>> ret = new ArrayList<>();
@@ -119,6 +157,10 @@ public class MinesweeperGame {
         return ret;
     }
 
+    /**
+     * Prints the bomb value of each value to the console
+     * for developer control (and to cheat!)
+     */
     private void printBoardBomb() {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {
@@ -128,6 +170,10 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * Prints the adjacent value of each value to the console
+     * for developer control (and to cheat!)
+     */
     private void printBoardAdjacent() {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {
@@ -137,6 +183,10 @@ public class MinesweeperGame {
         }
     }
 
+    /**
+     * Ends the game by discovering every block
+     * TODO: improve this by showing a message?!
+     */
     public void endGame() {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {

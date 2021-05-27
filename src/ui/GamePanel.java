@@ -34,6 +34,9 @@ public class GamePanel extends JPanel {
         drawGame(g);
     }
 
+    /**
+     *  draws each tile and then draws the grid on top of them
+     */
     private void drawGame(Graphics g) {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {
@@ -43,6 +46,9 @@ public class GamePanel extends JPanel {
         drawGrid(g);
     }
 
+    /**
+     * draws the grid by drawing rectangles at the place of each square
+     */
     private void drawGrid(Graphics g) {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             for(int y = 0; y < BOARD_HEIGHT; y++) {
@@ -51,6 +57,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * draws each rectangle of the grid, color depends on the value of the flag mode, gray if on black if off
+     * @param x: x value of the drawn rectangle
+     * @param y: y value of the drawn rectangle
+     */
     private void drawRectangle(Graphics g, int x, int y) {
         Color savedCol = g.getColor();
         if(game.flagMode) {
@@ -62,6 +73,12 @@ public class GamePanel extends JPanel {
         g.setColor(savedCol);
     }
 
+    /**
+     * draws the tile according to its state, writes the adjacent bombs number if it is discovered, not a bomb tile
+     * and it has adjacent bomb tiles.
+     * @param x: x value of the tile to draw
+     * @param y: y value of the tile to draw
+     */
     private void drawSquare(Graphics g, int x, int y) {
         Color savedCol = g.getColor();
         if(!game.board[x][y].discovered) {

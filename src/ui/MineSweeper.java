@@ -29,6 +29,9 @@ public class MineSweeper extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * initializes the game
+     */
     public static void main(String[] args) {
         new MineSweeper();
     }
@@ -41,6 +44,10 @@ public class MineSweeper extends JFrame {
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    /**
+     * mouse handler class:
+     * every mouse action calls handleCLick function on the tile clicked
+     */
     private class MouseHandler implements MouseListener {
 
         @Override
@@ -72,6 +79,9 @@ public class MineSweeper extends JFrame {
         }
     }
 
+    /**
+     * key handler that handles r for reset and f for flag mode
+     */
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {

@@ -8,6 +8,10 @@ public class Tile {
     public int adjacent;
     public boolean flagged;
 
+    /**
+     * creates a new tile
+     * @param bomb: determines if the tile contains a bomb
+     */
     public Tile(boolean bomb) {
         this.bomb = bomb;
         discovered = false;
